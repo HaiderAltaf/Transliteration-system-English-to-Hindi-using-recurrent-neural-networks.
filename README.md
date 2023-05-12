@@ -1,11 +1,11 @@
 # CS6910 Assignment -3
+Used recurrent neural networks to build a transliteration system.
 
 ## Authors
 
  [@Haider Altaf am22s020](https://www.github.com/HaiderAltaf)
 
 ## General Instructions:
-Used recurrent neural networks to build a transliteration system.
 
 Install the required libraries using the following command :
 
