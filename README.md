@@ -83,7 +83,8 @@ Description of various command line arguments
     --bi_directional : input sequence to be processed in both forward and backward directions: True or False
     
 ### 10. Training our CNN model
-I have created training file called __Seq2Seq_w/o_attention.py__ and  __Seq2Seq_with_attention.py__ files it has everything needed for training and testing our model.
+I have created training file called __Seq2Seq_vanilla.py__ and  __Seq2Seq_attention.py__ files it has everything needed for training and testing our model
+for the model without attention and with atention respectively.
 we can run the code using command line arguments. 
 
 Or we may also use __.ipynb files__ for both the part to train the model and test it by manually running the code.
