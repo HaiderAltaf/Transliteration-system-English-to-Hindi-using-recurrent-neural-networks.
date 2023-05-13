@@ -56,25 +56,15 @@ Run the below code if you want to run the sweep
 - import wandb
 
 ### 6. RNN Model :
-Created Encoder, Decoder which will be used for Seq2Seq model creation.
+- Created Encoder, Decoder which will be used for Seq2Seq model creation.
 
 ### 7. Function for training the model:
 - Created __train()__ function to train our model.
-- In this, first model is defined and it is exported to the device (either GPU or CPU).
-- Optimizer and loss function is imported using __torch__ library.
-  __optimizer__=torch.optim.__Adam__(model.parameters(),__lr__=0.0001,__weight_decay__=0.0001)
-  __loss_function__=nn.__CrossEntropyLoss__()
 - __train_with_wandb__ is the second function to train our model if we want to run sweep using wandb.
-  I have also include the commands needed to integrate the __wandb__ __sweep__. I have __login__ to wandb account. I have already imported the __wandb__, now I am giving the __default values__ of our 
-  variable for __sweep__. After that I have defined the __wandb run name__ which will be assign to each run. Values like __epoch__, __train loss__, __train accuracy__ and __validation accuracy__ are
-  login  to wandb.
-- __Saving__ the wandb run and __finishing__ the run
+- These functions are same in the case of model with attention and without attention
 
 ### 9. Arg parse 
-
-created function __arg_parse()__ to pass the command line arguments.
-
-- Using argparse, I have define the arguments and options that my program accepts,
+To pass the command line arguments.
 - argparse will run the code, pass arguments from command line and 
     automatically generate help messages.
 - __I have given the defaults values for 
@@ -85,38 +75,37 @@ Description of various command line arguments
     --wandb_sweep : Do you want to sweep or not: Enter True or False. Default value is False. 
     --wandb_entity : Login username for wandb. Default is given but if you are already using wandb, you will be logged in automatically.
     --wandb_project : name to initialize your run. No need to mention if you are just trying the code.
-    --data_augmentation : Data Augmentation: True or False
+    --cell_type : RNN cell types: 'lstm', 'rnn', or 'gru'
     --epochs : Number of Epochs: integer value
-    --batch_size : Batch Size: integer value
-    --dense_layer : Dense Layer size: integer value
-    --activation : Activation function: string value
-    --batch_normalisation : Batch Normalization in each layer: True or False
+    --hidden_size : number of units or neurons in the hidden layer of the network : integer value
+    --embedding_size :  The embedding size is the dimensionality of the dense vector representation: integer value
+    --num_layers : number of recurrent layers that are stacked on top of each other to process sequential input: string value
+    --bi_directional : input sequence to be processed in both forward and backward directions: True or False
     
 ### 10. Training our CNN model
-I have created training file called __train_partA.py__ file it has everything needed for training and testing our model. we can run the code using command line arguments. 
+I have created training file called __Seq2Seq_w/o_attention.py__ and  __Seq2Seq_with_attention.py__ files it has everything needed for training and testing our model.
+we can run the code using command line arguments. 
 
-Or we may also use .ipynb file for partA problem to train the model and test it.
+Or we may also use __.ipynb files__ for both the part to train the model and test it by manually running the code.
 
 ### 11. Running the wandb sweep:
 
 The wandb configuration for sweep:
-- sweep_config = {"name": "cs6910_assignment2", "method": "bayes"}   
+- sweep_config = {"name": "cs6910_assignment 3", "method": "bayes"}   
 - sweep_config["metric"] = {"name": "val_accuracy", "goal": "maximize"}
 
-- parameters_dict = {
-            
-             "num_filters": {"values": [[12,12,12,12,12],[4,8,16,32,64],[64,32,16,8,4]},
-              "act_fu": {"values": ["relu","selu","mish"]},
-              "size_kernel": {"values": [[(3,3),(3,3),(3,3),(3,3),(3,3)], [(3,3),(5,5),(5,5),(7,7),(7,7)],
-                                         [(7,7),(7,7),(5,5),(5,5),(3,3)]]}, 
-                "data_augmentation": {"values": [True, False]} ,
-                "batch_normalisation": {"values": [True, False]} ,
-                "dropout_rate": {"values": [0, 0.2, 0.3]},
-                "size_denseLayer": {"values": [50, 100, 150, 200]}
-                }
-- sweep_config["parameters"] = parameters_dict
+- hyperparameters = {
+        "num_layers": { "values": [2, 3, 4] },
+        "hidden_size": {  "values": [64, 128, 256]},
+        "cell_type": { "values": ["rnn", "gru", "lstm"]},
+        "num_epochs":{  "values": [10, 15, 20]},
+        "bi_dir":{   "values": [False, True]},
+        "dropout": { "values": [0.2, 0.3, 0.5] },
+        "embed_size":{ "values": [64, 128, 256]},
+      }
+
+- sweep_config["parameters"] = hyperparameters
 
 - sweep_id = wandb.sweep(sweep_config, entity="am22s020", project="cs6910_assignment2")
-- wandb.agent(sweep_id, train_CNN, count=150)
 
 
