@@ -1,5 +1,7 @@
 numpy
+pandas
 matplotlib
 pytorch
 torchvision
 wandb
+prettytable
