@@ -113,10 +113,12 @@ To run the wandb sweep, you need to give the wandb_sweep=True through command li
 for manual you may run the code named __train_with_wandb__.
 
 ### 12. Evaluating the model:
- To find the validation and train accuracy we may run the __train()__ function by providing the values 
- of hyperparameters the model. I have written the function to predict the hindi word of the input word then 
- function created to find the accuracy.
- For testing the model, just change the dataset argument of the __accuracy__ function as test data to find the 
- test accuracy at the given hyper parameters values.
 
+ To find the validation and train accuracy we may run the __train()__ function by providing the values 
+ of hyperparameters of the model. 
+ 
+ I have written the function to predict the hindi word of the input word then function created to find the accuracy.
+ 
+ For testing the model, just change the dataset argument of the __accuracy__ function as test data to find the 
+ test accuracy at the given hyper parameters values in the __train__ function.
 
