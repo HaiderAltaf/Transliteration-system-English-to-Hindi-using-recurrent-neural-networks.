@@ -1,4 +1,4 @@
-# CS6910 Assignment -3
+# RNN based transliteration model
 Used recurrent neural networks to build a transliteration system.
 
 ## Authors
